@@ -1,15 +1,57 @@
 <?php
- session_start();
- $_SESSION["invalidCredentials"] = 0;
- $_SESSION["cli_response"] = null;
+session_start();
+$_SESSION["cli_response"] = null;
+if((!(isset($_SESSION["flag"]))) || $_SESSION["flag"]===0){
+    header("Location: ../pages/index.php");
+}
 ?>
 
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="icon" type="image/png" href="../resources/icon.png" sizes="16x16">
-    <title>ChatForce - Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>ChatForce - Chat</title>
     <meta charset="UTF-8">
+    <script type="text/javascript">
+        function update()
+        {
+            $.post("../src/php/chatserver.php", {}, function(data){ $("#screen").val(data);});
+
+            setTimeout('update()', 1000);
+        }
+
+        $(document).ready(
+
+            function()
+            {
+                update();
+                console.log($("#button"));
+                $("#button").click(
+                    function()
+                    {
+                        $.post("../src/php/chatserver.php",
+                            { message: $("#message").val() },
+                            function(data){
+                                $("#screen").val(data);
+                                $("#message").val("");
+                            }
+                        );
+                    }
+                );
+
+                $("#clear").click(
+                    function()
+                    {
+                        $.post("../src/php/chatserver.php",
+                            { clear: $("#clear").val() }
+                        );
+                    }
+                );
+
+
+            });
+    </script>
 </head>
 
 <body style="background-color: whitesmoke; background-image: url(../resources/index_background.png);height: 100%; overflow-x:hidden;
@@ -81,21 +123,20 @@
 </div>
 </nav>
 
-<?php
-        if (isset($_SESSION["flag"]) && $_SESSION["flag"] === 0) : ?>
-           <div class="row justify-content-md-center justify-content-right">
-            <div class="col col-6 p-5">
-            <div class="text-center">
-            <h1 style="text-align: center;  color:#A52A2A">Welcome stranger!</h1>
-            <h2 style="text-align: center;  color:#A52A2A"> Please login first to use our functionalities.</h2>
-            <h2 style="text-align: center;  color:#A52A2A"> If you don't have an account feel free to register.</h2>
-            <button type="button" class="btn btn-danger navbar-btn mt-1 mb-1 mr-1 btn-sm ml-5" name="Register" onclick="document.location.href = 'register.php'"><b>Register</b>
+<div style="margin-left: 40rem; margin-top: 20rem">
+    <div style="width: 40%; height: 30%; margin: 5%">
+        <div style="height: 90%; background-color: white;" class="form-group">
+            <textarea rows="10" id="screen" style="border-color: rgb(0,123,255);background-color: white; resize: none" class="form-control" disabled> </textarea>
         </div>
-    </div>
-</div>
+    <div style="height: 10%;" class="input-group">
+        <input type="text" class="form-control" style="border: solid 1px black; border-color: rgb(0,123,255)" id="message">
+        <button class="btn btn-danger" id="button">Send</button>
+        <?php
+        if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] === true) : ?>
+            <button class="btn btn-warning" id="clear">Clear</button>
         <?php endif ?>
-
-
-<p style="position: absolute; bottom: 0; right: 0;"> <img src="../resources/icon.png" style="max-width: 30px"> <b class="text-light">ChatForce v1.0</b></p>
+    </div>
+        
 </body>
-</html>
+
+    </html>
