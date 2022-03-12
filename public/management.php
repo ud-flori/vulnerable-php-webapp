@@ -14,9 +14,21 @@ if(!(isset($_SESSION["flag"])) ||
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="icon" type="image/png" href="../resources/icon.png" sizes="16x16">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>ChatForce - Manage users</title>
     <meta charset="UTF-8">
 </head>
+<script type="text/javascript">
+
+    function send($param){
+        $.post("../src/php/management_delete.php", {
+    type: 'POST',
+    data: {
+      "id": $param
+    }
+  })
+}
+</script>
 
 <body style="background-color: whitesmoke; background-image: url(../resources/index_background.png);height: 100%; overflow-x:hidden;
   background-position: left;
@@ -86,5 +98,80 @@ if(!(isset($_SESSION["flag"])) ||
     </ul>
 </div>
 </nav>
+
+
+
+<form method="post" class="text-light" action="../src/php/get_users.php" style=" margin: 0 auto; margin-top: 5%; width: 20%; height: 20%; padding: 50px;"  >
+    <h3 style="padding-bottom: 5px">Get Users</h3>
+    <button type="submit" class="btn btn-danger">GET</button>
+</form>
+<div class="container bg-secondary rounded">
+  <div class="row">
+    <div class="col-sm">
+      ID
+    </div>
+    <div class="col-sm">
+      Username
+    </div>
+    <div class="col-sm">
+     Function
+    </div>
+  </div>
+</div>
+<?php
+if(isset($_SESSION['users'])){
+foreach($_SESSION['users'] as $single_user){
+echo '
+<div class="container bg-secondary rounded">
+<div class="row">
+  <div class="col-sm" id='.$single_user[0].'>
+    '.$single_user[0].'
+  </div>
+  <div class="col-sm" id='.$single_user[1].'>
+    '.$single_user[1].'
+  </div>
+  <div class="col-sm" id='.$single_user[0].'>
+   <button type="submit" class="btn btn-danger" onclick="send('.$single_user[0].')">DELETE</button>
+  </div>
+</div>
+</div>
+';
+}
+}
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </html>

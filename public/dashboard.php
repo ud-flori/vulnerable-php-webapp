@@ -8,8 +8,21 @@ $_SESSION["cli_response"] = null;
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="icon" type="image/png" href="../resources/icon.png" sizes="16x16">
     <title>ChatForce - Dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
 </head>
+<script type="text/javascript">
+
+    function send(){
+    $.post("../src/php/test.php", {
+    type: 'POST',
+    data: { 
+      "input" : document.getElementById('inp').value
+    }
+  })
+}
+</script>
+
 
 <body style="background-color: whitesmoke; background-image: url(../resources/index_background.png);height: 100%; overflow-x:hidden;
   background-position: left;
@@ -79,5 +92,7 @@ $_SESSION["cli_response"] = null;
     </ul>
 </div>
 </nav>
+<input type=text id="inp" class="form-control">
+<button type="submit" class="btn btn-danger" onclick="send();">Submit</button>
 
-    </html>
+</html>

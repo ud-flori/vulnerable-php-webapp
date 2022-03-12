@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['users'] = null;
 $_SESSION["cli_response"] = null;
 if((!(isset($_SESSION["flag"]))) || $_SESSION["flag"]===0){
     header("Location: ../pages/index.php");
@@ -16,7 +17,7 @@ if((!(isset($_SESSION["flag"]))) || $_SESSION["flag"]===0){
     <script type="text/javascript">
         function update()
         {
-            $.post("../src/php/chatserver.php", {}, function(data){ $("#screen").val(data);});
+            $.post("../src/php/chatserver.php", {}, function(data){ $("#screen").html(data);});
 
             setTimeout('update()', 1000);
         }

@@ -1,6 +1,7 @@
 <?php
 session_start();
 $_SESSION["cli_response"] = null;
+$_SESSION['users'] = null;
 ?>
 
 <html>

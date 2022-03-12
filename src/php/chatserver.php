@@ -6,7 +6,8 @@ $text = "";
 $username = $_SESSION["username"];
 if (isset($_POST["message"])) {  
     $text_raw = $_POST["message"];
-    $text = strip_tags($text_raw);
+    $text = $text_raw;
+    //strip_tags($text_raw);
 }
 
 $conn = connectdb();

@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['users'] = null;
 if(!(isset($_SESSION["flag"])) ||
     (
         isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"] == false))
@@ -7,6 +8,7 @@ if(!(isset($_SESSION["flag"])) ||
     {
         header("Location: index.php");
 }
+
 ?>
 
 <html>

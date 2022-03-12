@@ -2,6 +2,7 @@
  session_start();
  $_SESSION["invalidCredentials"] = 0;
  $_SESSION["cli_response"] = null;
+ $_SESSION['users'] = null;
 ?>
 
 <html>
