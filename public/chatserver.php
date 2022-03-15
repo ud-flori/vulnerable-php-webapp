@@ -1,5 +1,5 @@
 <?php
-require_once("databaseaccess.php");
+require_once(dirname(__DIR__)."/src/php/databaseaccess.php");
 
 session_start();
 $text = "";
@@ -35,5 +35,4 @@ while ($row = mysqli_fetch_assoc($result))
     foreach ($row as $field => $value){
         echo $value . "\n";
     }
-
 ?>

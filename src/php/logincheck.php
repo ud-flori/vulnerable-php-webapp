@@ -20,9 +20,7 @@ $result = $conn->query($sql);
 $data = mysqli_fetch_array($result, MYSQLI_ASSOC);
 $pw_database = $data['password'];
 $role = $data['role'];
-echo "password:".$password;
-echo "pw_database:".$pw_database;
-echo "sql:  ".$sql;
+$id = $data['id'];
 if (password_verify($password,$pw_database))
     {
  session_start();
@@ -44,6 +42,6 @@ echo "success";
  $_SESSION["flag"] = 0;
  $_SESSION["invalidCredentials"] = 1; 
  echo "fail";
- //header("Location: ../../public/login.php");
+ header("Location: ../../public/login.php");
 
 ?>

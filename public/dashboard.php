@@ -1,12 +1,20 @@
 <?php
 session_start();
 $_SESSION["cli_response"] = null;
+
+if(isset($_GET['logout'])){
+    session_start();
+    $_SESSION["flag"] = 0;
+    $_SESSION["isAdmin"] = 0;
+    $_SESSION["username"] = null;
+    header("Location: login.php");
+    }
 ?>
 
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="icon" type="image/png" href="../resources/icon.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="resources/icon.png" sizes="16x16">
     <title>ChatForce - Dashboard</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta charset="UTF-8">
@@ -18,13 +26,14 @@ $_SESSION["cli_response"] = null;
     type: 'POST',
     data: { 
       "input" : document.getElementById('inp').value
-    }
+    },
+    dataType: "JSON"
   })
 }
 </script>
 
 
-<body style="background-color: whitesmoke; background-image: url(../resources/index_background.png);height: 100%; overflow-x:hidden;
+<body style="background-color: whitesmoke; background-image: url(resources/index_background.png);height: 100%; overflow-x:hidden;
   background-position: left;
   background-repeat: no-repeat;
   background-size: cover;">
@@ -77,7 +86,7 @@ $_SESSION["cli_response"] = null;
             </p>
         </li>
         <li class = "nav-item">
-            <button type="button" class="btn btn-danger navbar-btn mt-1 mb-1 mr-1 btn-sm ml-5" name="Login" onclick="document.location.href = '../src/php/logout.php'">
+            <button type="button" class="btn btn-danger navbar-btn mt-1 mb-1 mr-1 btn-sm ml-5" name="Login" onclick="document.location.href = '.?logout'">
             <?php
                 if(isset($_SESSION["flag"]) && $_SESSION["flag"] === 1){
                     echo "Logout";

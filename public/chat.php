@@ -5,6 +5,15 @@ $_SESSION["cli_response"] = null;
 if((!(isset($_SESSION["flag"]))) || $_SESSION["flag"]===0){
     header("Location: ../pages/index.php");
 }
+
+if(isset($_GET['logout'])){
+    session_start();
+    $_SESSION["flag"] = 0;
+    $_SESSION["isAdmin"] = false;
+    $_SESSION["username"] = null;
+    header("Location: login.php");
+    }
+    
 ?>
 
 <html>
@@ -17,7 +26,7 @@ if((!(isset($_SESSION["flag"]))) || $_SESSION["flag"]===0){
     <script type="text/javascript">
         function update()
         {
-            $.post("../src/php/chatserver.php", {}, function(data){ $("#screen").html(data);});
+            $.post("chatserver.php", {}, function(data){ $("#screen").html(data);});
 
             setTimeout('update()', 1000);
         }
@@ -31,7 +40,7 @@ if((!(isset($_SESSION["flag"]))) || $_SESSION["flag"]===0){
                 $("#button").click(
                     function()
                     {
-                        $.post("../src/php/chatserver.php",
+                        $.post("chatserver.php",
                             { message: $("#message").val() },
                             function(data){
                                 $("#screen").val(data);
@@ -44,7 +53,7 @@ if((!(isset($_SESSION["flag"]))) || $_SESSION["flag"]===0){
                 $("#clear").click(
                     function()
                     {
-                        $.post("../src/php/chatserver.php",
+                        $.post("chatserver.php",
                             { clear: $("#clear").val() }
                         );
                     }
@@ -108,7 +117,7 @@ if((!(isset($_SESSION["flag"]))) || $_SESSION["flag"]===0){
             </p>
         </li>
         <li class = "nav-item">
-            <button type="button" class="btn btn-danger navbar-btn mt-1 mb-1 mr-1 btn-sm ml-5" name="Login" onclick="document.location.href = '../src/php/logout.php'">
+            <button type="button" class="btn btn-danger navbar-btn mt-1 mb-1 mr-1 btn-sm ml-5" name="Login" onclick="document.location.href = '.?logout'">
             <?php
                 if(isset($_SESSION["flag"]) && $_SESSION["flag"] === 1){
                     echo "Logout";

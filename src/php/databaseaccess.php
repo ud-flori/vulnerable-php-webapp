@@ -1,6 +1,6 @@
 <?php
 function connectdb(){
-    $ini_array = parse_ini_file("../../config/mysql.ini");
+    $ini_array = parse_ini_file(dirname(dirname(__DIR__))."/config/mysql.ini");
     $username = $ini_array["username"];
     $password = $ini_array["password"];
     $host = $ini_array["host"];

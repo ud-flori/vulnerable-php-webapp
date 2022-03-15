@@ -3,17 +3,26 @@
  $_SESSION["invalidCredentials"] = 0;
  $_SESSION["cli_response"] = null;
  $_SESSION['users'] = null;
+
+if(isset($_GET['logout'])){
+session_start();
+$_SESSION["flag"] = 0;
+$_SESSION["isAdmin"] = false;
+$_SESSION["username"] = null;
+header("Location: login.php");
+}
+
 ?>
 
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="icon" type="image/png" href="../resources/icon.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="resources/icon.png" sizes="16x16">
     <title>ChatForce - Home</title>
     <meta charset="UTF-8">
 </head>
 
-<body style="background-color: whitesmoke; background-image: url(../resources/index_background.png);height: 100%; overflow-x:hidden;
+<body style="background-color: whitesmoke; background-image: url(resources/index_background.png);height: 100%; overflow-x:hidden;
   background-position: left;
   background-repeat: no-repeat;
   background-size: cover;">
@@ -24,12 +33,6 @@
             
             <h1>ChatForce</h1>
         </li>
-        <?php
-        if (isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true) : ?>
-            <li class="nav-item ml-auto align-middle">
-                <a class="nav-link align-content-center" href="admin.php">Admin Panel</a>
-            </li>
-        <?php endif ?>
         <?php
         if (isset($_SESSION["flag"]) && $_SESSION["flag"] == 1) : ?>
             <li class="nav-item ml-auto align-middle">
@@ -66,7 +69,7 @@
             </p>
         </li>
         <li class = "nav-item">
-            <button type="button" class="btn btn-danger navbar-btn mt-1 mb-1 mr-1 btn-sm ml-5" name="Login" onclick="document.location.href = '../src/php/logout.php'">
+            <button type="button" class="btn btn-danger navbar-btn mt-1 mb-1 mr-1 btn-sm ml-5" name="Login" onclick="document.location.href = '.?logout'">
             <?php
                 if(isset($_SESSION["flag"]) && $_SESSION["flag"] === 1){
                     echo "Logout";
@@ -94,9 +97,9 @@
         </div>
     </div>
 </div>
-        <?php endif ?>
+<?php endif ?>
 
 
-<p style="position: absolute; bottom: 0; right: 0;"> <img src="../resources/icon.png" style="max-width: 30px"> <b class="text-light">ChatForce v1.0</b></p>
+<p style="position: absolute; bottom: 0; right: 0;"> <img src="resources/icon.png" style="max-width: 30px"> <b class="text-light">ChatForce v1.0</b></p>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
-    echo var_dump($_GET['data']);
-    if($_GET['data'] == "pwn"){
+    echo var_dump($_POST['data']);
+    if("0ad" == $_SESSION['id']){
         echo "success";
     }
     else{
