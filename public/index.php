@@ -86,7 +86,7 @@ header("Location: login.php");
 </nav>
 
 <?php
-        if (isset($_SESSION["flag"]) && $_SESSION["flag"] === 0) : ?>
+        if (!(isset($_SESSION["flag"]) && $_SESSION["flag"] === 1)) : ?>
            <div class="row justify-content-md-center justify-content-right">
             <div class="col col-6 p-5">
             <div class="text-center">
